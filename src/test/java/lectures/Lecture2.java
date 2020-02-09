@@ -10,7 +10,7 @@ public class Lecture2 {
 
   @Test
   public void range() throws Exception {
-
+    IntStream.range(1, 11).forEach(System.out::println);
   }
 
   @Test
