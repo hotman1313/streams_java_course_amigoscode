@@ -15,29 +15,40 @@ import org.junit.Test;
 
 public class Lecture5 {
 
-  @Test
-  public void understandingFilter() throws Exception {
-    ImmutableList<Car> cars = MockData.getCars();
+	@Test
+	public void understandingFilter() throws Exception {
+		ImmutableList<Car> cars = MockData.getCars();
+		Predicate<? super Car> predicate = car -> car.getPrice() < 20000;
+		List<Car> carsFilterd = cars.stream().filter(predicate).collect(Collectors.toList());
+		carsFilterd.stream().forEach(System.out::println);
+		System.out.println(carsFilterd.size());
+	}
 
-  }
+	@Test
+	public void ourFirstMapping() throws Exception {
+		// transform from one data type to another
+		List<Person> people = MockData.getPeople();
+		List<PersonDTO> dtos = people.stream().map(PersonDTO::map).collect(Collectors.toList());
+		dtos.forEach(System.out::println);
 
-  @Test
-  public void ourFirstMapping() throws Exception {
-    // transform from one data type to another
-    List<Person> people = MockData.getPeople();
+		assertThat(dtos).hasSize(1000);
+		System.out.println(dtos.size());
+	}
 
-  }
+	@Test
+	public void averageCarPrice() throws Exception {
+		// calculate average of car prices
+		ImmutableList<Car> cars = MockData.getCars();
 
-  @Test
-  public void averageCarPrice() throws Exception {
-    // calculate average of car prices
+		Double av = cars.stream().mapToDouble(Car::getPrice).average().getAsDouble();
+		System.out.println(av);
 
-  }
+	}
 
-  @Test
-  public void test() throws Exception {
+	@Test
+	public void test() throws Exception {
 
-  }
+	}
 }
 
 
